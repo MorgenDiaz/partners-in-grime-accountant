@@ -3,12 +3,15 @@ import { Component } from "react";
 
 import Check from "./model/check";
 import CheckCreation from "./component/check-creation.component";
+import MainMenu from "./component/MainMenu";
+import EstimateNetPay from "./component/EstimateNetPay";
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
+      route: "main_menu",
       taxPercentage: 0,
       businessPercentage: 0,
       deposit: 0.0,
@@ -23,69 +26,29 @@ class App extends Component {
     };
   }
 
-  removeLastChar(inStr) {
-    return inStr.substring(0, inStr.length - 1);
-  }
-
-  isWholeNumber(inStr) {
-    return Number.isInteger(Number(inStr));
-  }
-
-  onTaxPercentChanged = (event) => {
-    let input = event.target.value;
-
-    if (!this.isWholeNumber(input)) {
-      event.target.value = this.removeLastChar(input);
-      return;
-    }
-
-    this.setState({ taxPercentage: Number(input) });
+  onRouteChange = (route) => {
+    this.setState({ route: route });
   };
 
-  onBusinessPercentChanged = (event) => {
-    let input = event.target.value;
-
-    if (!this.isWholeNumber(input)) {
-      event.target.value = this.removeLastChar(input);
-      return;
+  route = (route) => {
+    switch (route) {
+      case "main_menu":
+        return <MainMenu routeChangeHandler={this.onRouteChange} />;
+      case "estimate_net":
+        return <EstimateNetPay></EstimateNetPay>;
+      default:
+        return <h1>Routing Error</h1>;
     }
-
-    this.setState({ businessPercentage: Number(input) });
-  };
-
-  onDepositAmountChanged = (event) => {
-    let input = event.target.value;
-
-    if (Number.isNaN(Number(input))) {
-      event.target.value = this.removeLastChar(input);
-      return;
-    }
-
-    this.setState({ deposit: Number(input) });
-  };
-
-  onCalculateCheckClicked = () => {
-    const { taxPercentage, businessPercentage, deposit } = this.state;
-    let check = new Check(taxPercentage, businessPercentage);
-    check.addDeposit(deposit);
-    const checkStub = check.calculateCheck();
-    this.setState({ checkStub: checkStub });
   };
 
   render() {
-    const {
-      grossDepositAmount,
-      taxPercentage,
-      businessPercentage,
-      taxWithheld,
-      businessWitheld,
-      payable,
-    } = this.state.checkStub;
     return (
       <div className="App">
         <header className="App-header"></header>
 
-        <CheckCreation
+        {this.route(this.state.route)}
+
+        {/* <CheckCreation
           onTaxPercentChanged={this.onTaxPercentChanged}
           onBusinessPercentChanged={this.onBusinessPercentChanged}
           onDepositAmountChanged={this.onDepositAmountChanged}
@@ -96,7 +59,7 @@ class App extends Component {
           taxDeducted={taxWithheld}
           businessDeducted={businessWitheld}
           payable={payable}
-        ></CheckCreation>
+        ></CheckCreation> */}
       </div>
     );
   }
