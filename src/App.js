@@ -1,8 +1,6 @@
 import "./App.css";
 import { Component } from "react";
 
-import Check from "./model/check";
-import CheckCreation from "./component/check-creation.component";
 import MainMenu from "./component/MainMenu";
 import EstimateNetPay from "./component/EstimateNetPay";
 
