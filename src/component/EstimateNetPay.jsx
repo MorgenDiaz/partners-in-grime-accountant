@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Check from "../model/check";
 
 import LabeledNumberInput from "./LabeledNumberInput";
+import CheckStub from "./check-stub.component";
 
 const blankStub = {
   grossDepositAmount: 0.0,
@@ -47,6 +48,8 @@ class EstimateNetPay extends Component {
   };
 
   render() {
+    const { checkStub } = this.state;
+
     return (
       <Grid
         container
@@ -111,6 +114,25 @@ class EstimateNetPay extends Component {
               Calculate Check
             </Button>
           </Grid>
+        </Grid>
+
+        <Grid
+          container
+          direction="row"
+          spacing={1}
+          justifyContent="center"
+          alignItems="center"
+          item
+          xs={12}
+        >
+          <CheckStub
+            deposit={checkStub.grossDepositAmount}
+            tax={this.state.taxPercentage}
+            business={this.state.businessPercentage}
+            taxDeducted={checkStub.taxWithheld}
+            businessDeducted={checkStub.businessWitheld}
+            payable={checkStub.payable}
+          />
         </Grid>
       </Grid>
     );

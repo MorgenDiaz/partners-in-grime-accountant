@@ -35,8 +35,8 @@ export default function CheckStub({
         }}
       >
         <h3>{`Deposit: $${deposit}`}</h3>
-        <h3>{`Tax: %${tax}`}</h3>
-        <h3>{`Business: %${business}`}</h3>
+        <h3>{`Tax: ${tax}%`}</h3>
+        <h3>{`Business: ${business}%`}</h3>
       </Box>
 
       <Box>
