@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import Check from "../model/check";
 
-import LabeledNumberInput from "./LabeledNumberInput";
+import LabeledNumberInput from "./utility/LabeledNumberInput";
 import CheckStub from "./check-stub.component";
 
 const blankStub = {

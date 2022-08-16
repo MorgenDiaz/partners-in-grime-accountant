@@ -3,7 +3,11 @@ import { Component } from "react";
 
 import MainMenu from "./component/MainMenu";
 import EstimateNetPay from "./component/EstimateNetPay";
+import CreateDeposit from "./component/CreateDeposit";
 
+/* 
+  @todo Can not navigate back to menu.
+*/
 class App extends Component {
   constructor() {
     super();
@@ -34,6 +38,8 @@ class App extends Component {
         return <MainMenu routeChangeHandler={this.onRouteChange} />;
       case "estimate_net":
         return <EstimateNetPay></EstimateNetPay>;
+      case "new_payout":
+        return <CreateDeposit />;
       default:
         return <h1>Routing Error</h1>;
     }

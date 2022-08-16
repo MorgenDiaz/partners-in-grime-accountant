@@ -5,6 +5,10 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
 
 class MainMenu extends Component {
+  onNewPayoutClicked = (routeChangeHandler) => {
+    routeChangeHandler("new_payout");
+  };
+
   onEstimateNetClicked = (routeChangeHandler) => {
     routeChangeHandler("estimate_net");
   };
@@ -26,7 +30,14 @@ class MainMenu extends Component {
         >
           <Button key="empoloyees">Empoloyees</Button>
           <Button key="past-payouts">Past Payouts</Button>
-          <Button key="new-payout">New Payout</Button>
+          <Button
+            key="new-payout"
+            onClick={() => {
+              this.onNewPayoutClicked(routeChangeHandler);
+            }}
+          >
+            New Payout
+          </Button>
           <Button
             key="estimate-net"
             onClick={() => {
