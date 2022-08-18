@@ -5,13 +5,25 @@ import {
   FormControl,
   InputLabel,
   OutlinedInput,
-  Avatar,
   Button,
-  ButtonBase,
 } from "@mui/material";
 import ToggleUser from "./ToggleUser";
+import ToggleUserGroup from "./ToggleUserGroup";
 import LabeledNumberInput from "./utility/LabeledNumberInput";
 class CreateDeposit extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      jobName: "",
+      depositAmount: 0,
+      employees: [
+        { id: 96, firstName: "Art", lastName: "Diaz" },
+        { id: 69, firstName: "Morgen", lastName: "Diaz" },
+        { id: 23, firstName: "Penny", lastName: "Jo" },
+      ],
+    };
+  }
+
   onUserToggled = (active, userId) => {
     alert(active, userId);
   };
@@ -33,28 +45,12 @@ class CreateDeposit extends Component {
           />
         </Grid>
         <Grid container direction="row" item justifyContent="space-evenly" xs>
-          <ToggleUser
-            userId="69"
-            firstName="Art"
-            lastName="Diaz"
+          <ToggleUserGroup
+            users={this.state.employees}
             activeColor={deepPurple[500]}
             inactiveColor={"gray"}
             userToggledHandler={this.onUserToggled}
           />
-
-          <Avatar
-            component={ButtonBase}
-            data-user={"69"}
-            onClick={(event) => {
-              alert(event.target.getAttribute("data-user"));
-              event.target.setAttribute("sx", { bgcolor: "#FFFFFF" });
-            }}
-            sx={{ bgcolor: deepPurple[500] }}
-          >
-            AD
-          </Avatar>
-          <Avatar sx={{ bgcolor: deepPurple[500] }}>MD</Avatar>
-          <Avatar sx={{ bgcolor: deepPurple[500] }}>PJ</Avatar>
         </Grid>
         <Grid item xs>
           <Button variant="outlined">Add Deposit</Button>

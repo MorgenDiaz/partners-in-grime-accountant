@@ -58,7 +58,7 @@ class LabeledNumberInput extends Component {
               ? this.filterWholeNumber(event)
               : this.filterNumber(event);
 
-            if (value) {
+            if (value !== undefined) {
               onChange(Number(value));
             }
           }}
