@@ -4,16 +4,15 @@ import { Component } from "react";
 import MainMenu from "./component/MainMenu";
 import EstimateNetPay from "./component/EstimateNetPay";
 import CreateDeposit from "./component/CreateDeposit";
+import { Link } from "@mui/material";
 
-/* 
-  @todo Can not navigate back to menu.
-*/
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
       route: "main_menu",
+      navigationEnabled: false,
       taxPercentage: 0,
       businessPercentage: 0,
       deposit: 0.0,
@@ -28,7 +27,16 @@ class App extends Component {
     };
   }
 
+  updateNavigation = (route) => {
+    if (route === "main_menu") {
+      this.setState({ navigationEnabled: false });
+    } else if (!this.state.navigationEnabled) {
+      this.setState({ navigationEnabled: true });
+    }
+  };
+
   onRouteChange = (route) => {
+    this.updateNavigation(route);
     this.setState({ route: route });
   };
 
@@ -48,7 +56,23 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header"></header>
+        <header className="App-header">
+          {this.state.navigationEnabled ? (
+            <nav>
+              <Link
+                component="button"
+                variant="body2"
+                onClick={() => {
+                  this.onRouteChange("main_menu");
+                }}
+              >
+                Menu
+              </Link>
+            </nav>
+          ) : (
+            ""
+          )}
+        </header>
 
         {this.route(this.state.route)}
 

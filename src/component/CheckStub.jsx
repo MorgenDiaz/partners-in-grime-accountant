@@ -20,7 +20,7 @@ export default function CheckStub({
         "& > :not(style)": {
           m: 1,
           width: 248,
-          height: 248,
+          height: 128,
         },
       }}
       elevation={3}

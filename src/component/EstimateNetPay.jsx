@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Check from "../model/check";
 
 import LabeledNumberInput from "./utility/LabeledNumberInput";
-import CheckStub from "./check-stub.component";
+import CheckStub from "./CheckStub";
 
 const blankStub = {
   grossDepositAmount: 0.0,

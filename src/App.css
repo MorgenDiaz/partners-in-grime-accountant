@@ -1,7 +1,16 @@
 .App {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
   text-align: center;
   padding: 44px;
+}
+
+header {
+  display: flex;
+  width: 100%;
+}
+nav {
+  display: flex;
 }
