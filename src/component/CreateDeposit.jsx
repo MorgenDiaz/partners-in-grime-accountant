@@ -7,7 +7,6 @@ import {
   OutlinedInput,
   Button,
 } from "@mui/material";
-import ToggleUser from "./ToggleUser";
 import ToggleUserGroup from "./ToggleUserGroup";
 import LabeledNumberInput from "./utility/LabeledNumberInput";
 class CreateDeposit extends Component {
