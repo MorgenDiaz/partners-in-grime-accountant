@@ -3,8 +3,8 @@ import { Component } from "react";
 
 import MainMenu from "./component/MainMenu";
 import EstimateNetPay from "./component/EstimateNetPay";
-import CreateDeposit from "./component/CreateDeposit";
 import { Link } from "@mui/material";
+import CreatePayout from "./component/CreatePayout";
 
 class App extends Component {
   constructor() {
@@ -47,7 +47,7 @@ class App extends Component {
       case "estimate_net":
         return <EstimateNetPay></EstimateNetPay>;
       case "new_payout":
-        return <CreateDeposit />;
+        return <CreatePayout />;
       default:
         return <h1>Routing Error</h1>;
     }

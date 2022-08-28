@@ -5,15 +5,13 @@ import TextField from "@mui/material/TextField";
 
 import * as React from "react";
 
-export default function BasicDatePicker() {
-  const [value, setValue] = React.useState(null);
+export default function BasicDatePicker({ onDateSelected }) {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
         label="Basic example"
-        value={value}
         onChange={(newValue) => {
-          setValue(newValue);
+          onDateSelected(newValue);
         }}
         renderInput={(params) => <TextField {...params} />}
       />
