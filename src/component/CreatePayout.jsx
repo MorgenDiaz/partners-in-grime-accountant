@@ -22,12 +22,17 @@ class CreatePayout extends Component {
     this.setState({ date: date });
   };
 
-  onAddDeposit = (deposit) => {
-    console.log(deposit);
+  handleAddDeposit = (deposit) => {
     const updatedDeposits = [...this.state.deposits, deposit];
-    this.setState({ deposits: updatedDeposits }, () => {
-      console.log(this.deposits);
-    });
+    this.setState({ deposits: updatedDeposits });
+  };
+
+  handleDeleteDeposit = (index) => {
+    const updatedDeposits = this.state.deposits.filter(
+      (deposit, i) => i !== index
+    );
+
+    this.setState({ deposits: updatedDeposits });
   };
 
   render() {
@@ -36,9 +41,13 @@ class CreatePayout extends Component {
         <BasicDatePicker onDateSelected={this.handleDateSelected} />
         <CreateDeposit
           employees={employees}
-          handleAddDeposit={this.onAddDeposit}
+          handleAddDeposit={this.handleAddDeposit}
         />
-        <DepositList deposits={this.state.deposits} employees={employees} />
+        <DepositList
+          deposits={this.state.deposits}
+          employees={employees}
+          onDeleteClicked={this.handleDeleteDeposit}
+        />
       </div>
     );
   }
