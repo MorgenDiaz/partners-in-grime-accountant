@@ -6,9 +6,6 @@ import {
   InputLabel,
 } from "@mui/material";
 class LabeledNumberInput extends Component {
-  /* 
-    @todo should be able to clear input, but filter functions won't allow.
-*/
   removeLastChar(inStr) {
     return inStr.substring(0, inStr.length - 1);
   }
@@ -62,7 +59,7 @@ class LabeledNumberInput extends Component {
               onChange(Number(value));
             }
           }}
-          value={value}
+          value={value ? value : ""}
           size="small"
         />
       </FormControl>

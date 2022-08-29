@@ -9,16 +9,21 @@ import {
 } from "@mui/material";
 import ToggleUserGroup from "./ToggleUserGroup";
 import LabeledNumberInput from "./utility/LabeledNumberInput";
+
 class CreateDeposit extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
+    this.state = this.initialState();
+  }
+
+  initialState = () => {
+    return {
       jobName: "",
       depositAmount: 0,
-      payees: props.employees.map((employee) => employee.id),
+      payees: this.props.employees.map((employee) => employee.id),
     };
-  }
+  };
 
   onJobNameChanged = (event) => {
     this.setState({ jobName: event.target.value });
@@ -49,6 +54,8 @@ class CreateDeposit extends Component {
       payees: payees,
     };
 
+    this.setState(this.initialState());
+
     this.props.handleAddDeposit(deposit);
   };
 
@@ -65,6 +72,7 @@ class CreateDeposit extends Component {
               label="Name"
               size="small"
               onChange={this.onJobNameChanged}
+              value={this.state.jobName}
             />
           </FormControl>
         </Grid>
@@ -74,6 +82,7 @@ class CreateDeposit extends Component {
             label="Deposit Amount"
             startAdornment="$"
             onChange={this.onDepositAmountChanged}
+            value={this.state.depositAmount}
           />
         </Grid>
         <Grid container direction="row" item justifyContent="space-evenly" xs>

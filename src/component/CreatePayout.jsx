@@ -1,6 +1,7 @@
 import { Component } from "react";
-import CreateDeposit from "./CreateDeposit";
 import BasicDatePicker from "./utility/DatePicker";
+import CreateDeposit from "./CreateDeposit";
+import DepositList from "./DepositList";
 
 const employees = [
   { id: 96, firstName: "Art", lastName: "Diaz" },
@@ -11,8 +12,10 @@ const employees = [
 class CreatePayout extends Component {
   constructor() {
     super();
-    this.date = new Date();
-    this.deposits = [];
+    this.state = {
+      date: new Date(),
+      deposits: [],
+    };
   }
 
   handleDateSelected = (date) => {
@@ -20,7 +23,11 @@ class CreatePayout extends Component {
   };
 
   onAddDeposit = (deposit) => {
-    this.setState({ deposits: [...this.deposits, deposit] });
+    console.log(deposit);
+    const updatedDeposits = [...this.state.deposits, deposit];
+    this.setState({ deposits: updatedDeposits }, () => {
+      console.log(this.deposits);
+    });
   };
 
   render() {
@@ -31,6 +38,7 @@ class CreatePayout extends Component {
           employees={employees}
           handleAddDeposit={this.onAddDeposit}
         />
+        <DepositList deposits={this.state.deposits} employees={employees} />
       </div>
     );
   }
