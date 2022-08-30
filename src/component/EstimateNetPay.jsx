@@ -1,10 +1,12 @@
 import { Component } from "react";
-import { Grid } from "@mui/material";
-import Button from "@mui/material/Button";
+import { Grid, Button } from "@mui/material";
+
 import Check from "../model/check";
 
 import LabeledNumberInput from "./utility/LabeledNumberInput";
 import CheckStub from "./CheckStub";
+import DurationPicker from "./utility/duration-picker/DurationPicker";
+import { timeToFloat } from "../model/util";
 
 const blankStub = {
   grossDepositAmount: 0.0,
@@ -22,6 +24,8 @@ class EstimateNetPay extends Component {
     this.state = {
       taxPercentage: 30,
       businessPercentage: 15,
+      payees: 1,
+      time: 1,
       depositAmount: 0,
       checkStub: blankStub,
     };
@@ -35,14 +39,22 @@ class EstimateNetPay extends Component {
     this.setState({ businessPercentage: inputPercentage });
   };
 
+  onPayeesChanged = (inputPayees) => {
+    this.setState({ payees: inputPayees });
+  };
+
+  onTimeEstimateChanged = (time) => {
+    this.setState({ time: timeToFloat(time.hours, time.minutes) });
+  };
+
   onDepositAmountChanged = (inputAmount) => {
-    this.setState({ deposit: inputAmount });
+    this.setState({ depositAmount: inputAmount });
   };
 
   onCalculateCheckClicked = () => {
-    const { taxPercentage, businessPercentage, deposit } = this.state;
+    const { taxPercentage, businessPercentage, depositAmount } = this.state;
     let check = new Check(taxPercentage, businessPercentage);
-    check.addDeposit(deposit);
+    check.addDeposit(depositAmount);
     const checkStub = check.calculateCheck();
     this.setState({ checkStub: checkStub });
   };
@@ -93,6 +105,35 @@ class EstimateNetPay extends Component {
 
         <Grid
           container
+          spacing={1}
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          item
+          xs={12}
+        >
+          <Grid item>
+            <LabeledNumberInput
+              id="payees"
+              label="Split between people"
+              startAdornment="#"
+              wholeNumbersOnly={true}
+              onChange={this.onPayeesChanged}
+              value={this.state.payees}
+            />
+          </Grid>
+
+          <Grid item>
+            <DurationPicker
+              onChange={this.onTimeEstimateChanged}
+              initialDuration={{ hours: 1, minutes: 0 }}
+              noSeconds={true}
+            />
+          </Grid>
+        </Grid>
+
+        <Grid
+          container
           direction="row"
           spacing={1}
           justifyContent="center"
@@ -105,6 +146,7 @@ class EstimateNetPay extends Component {
               id="deposit-amount"
               label="Deposit Amount"
               startAdornment="$"
+              value={this.state.depositAmount}
               onChange={this.onDepositAmountChanged}
             />
           </Grid>
@@ -133,6 +175,21 @@ class EstimateNetPay extends Component {
             businessDeducted={checkStub.businessWitheld}
             payable={checkStub.payable}
           />
+        </Grid>
+        <Grid
+          container
+          direction="row"
+          spacing={1}
+          justifyContent="center"
+          alignItems="center"
+          item
+          xs={12}
+        >
+          <h2>{`Hourly: $${(
+            checkStub.payable /
+            this.state.time /
+            this.state.payees
+          ).toFixed(2)}`}</h2>
         </Grid>
       </Grid>
     );
